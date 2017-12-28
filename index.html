@@ -14,7 +14,7 @@
       }
     </style>
   </head>
-  <script type="text/javascript" src="./js/ajax.js"></script>
+  <script type="text/javascript" src="./js/o-muen.js"></script>
   <body>
     <div class="row">正在检测网络配置...</div>
     <div class="row">Checking Network Settings...</div>
@@ -23,8 +23,8 @@
       ui.serverid = "1106998678468001895030322068211092689070";
       ui.go = function(domain){
         var url = domain + "/woo/about.do";
-        ajax.get(url, function(data, error){
-          if( (!error) && ((data||"").indexOf(ui.serverid)>-1) ){
+        ajax.get(url, function(o){
+          if( (!o.error) && (o.text.indexOf(ui.serverid)>-1) ){
             window.location = domain + "/woo/www/start.html";
           }
         });

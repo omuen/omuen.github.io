@@ -27,7 +27,7 @@
           var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/woo/www/start.html"])[1];
           ajax.get(url, function(o){
             if( (!o.error) && (o.text.indexOf(ui.serverid)>-1) ){
-              w.location = domain + fn;
+              w.location = domain + w.decodeURIComponent(fn);
             }
           });
         };

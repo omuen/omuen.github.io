@@ -19,18 +19,21 @@
     <div class="row">正在检测网络配置...</div>
     <div class="row">Checking Network Settings...</div>
     <script type="text/javascript">
-      var ui = {};
-      ui.serverid = "1106998678468001895030322068211092689070";
-      ui.go = function(domain){
-        var url = domain + "/woo/about.do";
-        ajax.get(url, function(o){
-          if( (!o.error) && (o.text.indexOf(ui.serverid)>-1) ){
-            window.location = domain + "/woo/www/start.html";
-          }
-        });
-      };
-      ui.go("https://local.bimwook.com");
-      ui.go("https://www.bimwook.com:11180");
+      -function(w){
+        var ui = {};
+        ui.serverid = "1106998678468001895030322068211092689070";
+        ui.go = function(domain){
+          var url = domain + "/woo/about.do";
+          var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/woo/www/start.html"])[1];
+          ajax.get(url, function(o){
+            if( (!o.error) && (o.text.indexOf(ui.serverid)>-1) ){
+              w.location = domain + fn;
+            }
+          });
+        };
+        ui.go("https://local.bimwook.com");
+        ui.go("https://www.bimwook.com:11180");
+      }(window);
     </script>
   </body>
 </html>

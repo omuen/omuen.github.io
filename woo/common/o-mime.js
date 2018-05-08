@@ -1,4 +1,5 @@
-!function(w){
+!function(woo){
+  var w = window;
   var fn = {};
   fn.trim = function(text){
     return (text || "").replace(/^\s+|\s+$/g, "");
@@ -54,7 +55,26 @@
     }
     return ret;
   };
-  w.Mime = function(text){
-    return fn.create(text);
+  woo.add("mime", function(text){
+    return fn.create(text||"");
+  });
+  woo.end();
+}({
+  modules: [],
+  add: function(name, module){
+    this.modules.push({name: name, module: module});
+  },
+  end: function(){
+    window.modules = window.modules||{};
+    for(var i=0; i<this.modules.length; i++){
+      var m = this.modules[i];
+      window.modules[m.name] = m.module;
+    }
+    if(window.Modules && window.Modules.add){
+      for(var i=0; i<this.modules.length; i++){
+        var m = this.modules[i];
+        window.Modules.add(m.name, m.module);
+      }
+    }
   }
-}(window);
+});

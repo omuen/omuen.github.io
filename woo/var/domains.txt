@@ -1,0 +1,6 @@
+http://bimwook.com
+https://www.bimwook.com:11180
+https://omuen.com:11180
+
+https://local.bimwook.com
+

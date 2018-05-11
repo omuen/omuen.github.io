@@ -27,7 +27,7 @@
           var url = domain + "/woo/about.do";
           var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/start.html"])[1];
           ajax.get(url, function(o){
-            if( o.text.indexOf(ui.serverid)>-1 ){
+            if( o.text.indexOf(fn.serverid)>-1 ){
               w.location = domain + w.decodeURIComponent(fn);
             }
           });

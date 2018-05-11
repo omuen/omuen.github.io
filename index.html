@@ -20,20 +20,20 @@
     <div class="row">Checking Network Settings...</div>
     <script type="text/javascript">
       -function(w){
-        var ui = {};
+        var fn = {};
         var ajax = w.Modules.load("ajax");
-        ui.serverid = "1106998678468001895030322068211092689070";
-        ui.go = function(domain){
+        fn.serverid = "1106998678468001895030322068211092689070";
+        fn.go = function(domain){
           var url = domain + "/woo/about.do";
           var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/start.html"])[1];
           ajax.get(url, function(o){
-            if( (!o.error) && (o.text.indexOf(ui.serverid)>-1) ){
+            if( o.text.indexOf(ui.serverid)>-1 ){
               w.location = domain + w.decodeURIComponent(fn);
             }
           });
         };
-        ui.go("https://local.bimwook.com");
-        ui.go("https://www.bimwook.com:11180");
+        fn.go("https://local.bimwook.com");
+        fn.go("https://www.bimwook.com:11180");
       }(window);
     </script>
   </body>

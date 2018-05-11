@@ -25,7 +25,7 @@
         ui.serverid = "1106998678468001895030322068211092689070";
         ui.go = function(domain){
           var url = domain + "/woo/about.do";
-          var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/woo/www/start.html"])[1];
+          var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/start.html"])[1];
           ajax.get(url, function(o){
             if( (!o.error) && (o.text.indexOf(ui.serverid)>-1) ){
               w.location = domain + w.decodeURIComponent(fn);

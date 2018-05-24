@@ -224,15 +224,21 @@
       x.on = function (name, callback) {
         var me = this;
         this.foreach(function(item){
-          me.events.push(bind(item, name, callback));
+          item.events = item.events ||[];
+          item.events.push(bind(item, name, callback));
         });
         return this;
       };
       x.off = function(){
-        this.events.map(function(evt){
-          unbind(evt.item, evt.name, evt.callback);
+        this.foreach(function(item){
+          if(item.events){
+            for(var i=0; i<item.events.length; i++){
+              var evt = item.events[i];
+              unbind(evt.item, evt.name, evt.callback);
+            }
+          }
+          item.events = [];
         });
-        this.events = [];
         return this;
       }
       return x;

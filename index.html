@@ -15,6 +15,7 @@
     </style>
   </head>
   <script type="text/javascript" src="./js/o-muen.js"></script>
+  <script type="text/javascript" src="./js/o-base64.js"></script>
   <body>
     <div class="row">&#27491;&#22312;&#26816;&#27979;&#32593;&#32476;&#37197;&#32622;...</div>
     <div class="row">Checking Network Settings...</div>
@@ -22,10 +23,18 @@
       -function(w){
         var woo = {};
         var ajax = w.Modules.load("ajax");
+        var base64 = w.Modules.load("base64");
         var serverid = "1106998678468001895030322068211092689070";
         woo.go = function(domain){
           var url = domain + "/woo/about.do";
-          var fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/start.html"])[1];
+          var x = (w.location.search.match(/\?x=([^&]*)/)||["",""])[1];
+          var fn = "/start.html";
+          if(x){
+            fn = base64.decode(x);
+          }
+          else {
+            fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/start.html"])[1];          
+          }
           ajax.get(url, function(o){
             if( o.text.indexOf(serverid)>-1 ){
               w.location = domain + w.decodeURIComponent(fn);

@@ -31,7 +31,9 @@
           fn = base64.decode(x);
         }
         else {
-          fn = (w.location.search.match(/\?fn=([^&]*)/)||["","/start.html"])[1];          
+          var width = window.screen.width;
+          var home = width>480?"/home.html":"/start.html";
+          fn = (w.location.search.match(/\?fn=([^&]*)/)||["", home])[1];          
         }
         woo.go = function(domain){
           var url = domain + "/woo/about.do";

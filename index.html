@@ -20,25 +20,23 @@
     <div class="row">&#27491;&#22312;&#26816;&#27979;&#32593;&#32476;&#37197;&#32622;...</div>
     <div class="row">Checking Network Settings...</div>
     <script type="text/javascript">
-      -function(w){
+      - function (w) {
         var woo = {};
         var ajax = w.Modules.load("ajax");
         var base64 = w.Modules.load("base64");
         var serverid = "1106998678468001895030322068211092689070";
-        var x = (w.location.search.match(/\?x=([^&]*)/)||["",""])[1];
-        var fn = "/start.html";
-        if(x){
+        var x = (w.location.search.match(/\?x=([^&]*)/) || ["", ""])[1];
+        var fn = window.screen.width > 1024 ? "/home.html" : "/start.html";
+        if (x) {
           fn = base64.decode(x);
         }
         else {
-          var width = window.screen.width;
-          var home = width>1024?"/home.html":"/start.html";
-          fn = (w.location.search.match(/\?fn=([^&]*)/)||["", home])[1];          
+          fn = (w.location.search.match(/\?fn=([^&]*)/) || ["", fn])[1];
         }
-        woo.go = function(domain){
+        woo.go = function (domain) {
           var url = domain + "/woo/about.do";
-          ajax.get(url, function(o){
-            if( o.text.indexOf(serverid)>-1 ){
+          ajax.get(url, function (o) {
+            if (o.text.indexOf(serverid) > -1) {
               w.location = domain + w.decodeURIComponent(fn);
             }
           });

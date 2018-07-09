@@ -26,7 +26,7 @@
         var base64 = w.Modules.load("base64");
         var serverid = "1106998678468001895030322068211092689070";
         var x = (w.location.search.match(/\?x=([^&]*)/) || ["", ""])[1];
-        var fn = window.screen.width > 1024 ? "/home.html" : "/start.html";
+        var fn = (document.body.clientWidth||window.screen.width) > 1024 ? "/home.html" : "/start.html";
         if (x) {
           fn = base64.decode(x);
         }

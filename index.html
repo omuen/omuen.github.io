@@ -34,7 +34,7 @@
           fn = (w.location.search.match(/\?fn=([^&]*)/) || ["", fn])[1];
         }
         woo.go = function (domain) {
-          var url = domain + "/woo/about.do";
+          var url = domain + "/about.io";
           ajax.get(url, function (o) {
             if (o.text.indexOf(serverid) > -1) {
               w.location = domain + w.decodeURIComponent(fn);

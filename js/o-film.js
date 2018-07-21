@@ -10,7 +10,7 @@
  * 
  */
 
-!function () {
+!function (woo) {
   var fn = {};
   fn.create = function (container) {
     var ret = {};
@@ -262,9 +262,27 @@
 
     return ret;
   }
-
-  window.Film = function (container) {
+ 
+  woo.add("film", function(container){
     return fn.create(container);
+  });
+  woo.end();  
+}({
+  modules: [],
+  add: function(name, module){
+    this.modules.push({name: name, module: module});
+  },
+  end: function(){
+    window.modules = window.modules||{};
+    for(var i=0; i<this.modules.length; i++){
+      var m = this.modules[i];
+      window.modules[m.name] = m.module;
+    }
+    if(window.Modules && window.Modules.add){
+      for(var i=0; i<this.modules.length; i++){
+        var m = this.modules[i];
+        window.Modules.add(m.name, m.module);
+      }
+    }
   }
-}();
-
+});

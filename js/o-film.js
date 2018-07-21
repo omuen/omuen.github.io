@@ -1,9 +1,9 @@
 /*!
- * https://www.bimwook.com/
+ * https://bimwook.com/
  *
  * Copyright (c) 2009 Yangbo
  *
- * Created: 2016-09-21 15:20:00 +0800
+ * Created: 2009-09-21 15:20:00 +0800
  * Revision: 1
  * 
  * Modified: 2018-07-21 09:43:00 +0800
@@ -11,41 +11,39 @@
  */
 
 !function () {
-  var film = {};
-  film.create = function (container) {
+  var fn = {};
+  fn.create = function (container) {
     var ret = {};
-    ret.container = document.getElementById(container);
+    var meta = {};
+    meta.container = document.getElementById(container);
+    meta.indicator = {};
+    meta.items = [];
+    meta.screen = null;
+    meta.timer = null;
 
-    ret.items = [];
-    ret.screen = null;
-    ret.timer = null;
+    meta.container.style.width = "100%";
+    meta.container.style.position = "relative";
+    meta.container.style.height = "auto";
+    meta.container.style.overflow = "hidden";
 
-    ret.container.style.width = "100%";
-    ret.container.style.position = "relative";
-    ret.container.style.height = "auto";
-    ret.container.style.overflow = "hidden";
-
-    ret.indicator = {};
-
-
-    ret.indicator.items = [];
-    ret.indicator.current = null;
-    ret.indicator.reset = function () {
+    meta.indicator.items = [];
+    meta.indicator.current = null;
+    meta.indicator.reset = function () {
 
       this.items = [];
       this.current = null;
 
-      this.dom = document.createElement("ul");
-      this.dom.style.margin = "0";
-      this.dom.style.padding = "0";
-      this.dom.style.position = "absolute";
-      this.dom.style.bottom = "8px";
-      this.dom.style.zIndex = "1980";
-      this.dom.style.listStyleType = "none";
-      this.dom.style.height = "16px";
-      this.dom.innerHTML = "";
-      ret.container.appendChild(this.dom);
-      for (var i = 0; i < ret.items.length; i++) {
+      var dom = document.createElement("ul");
+      dom.style.margin = "0";
+      dom.style.padding = "0";
+      dom.style.position = "absolute";
+      dom.style.bottom = "8px";
+      dom.style.zIndex = "1980";
+      dom.style.listStyleType = "none";
+      dom.style.height = "16px";
+      dom.innerHTML = "";
+      meta.container.appendChild(dom);
+      for (var i = 0; i < meta.items.length; i++) {
         var li = document.createElement("li");
         li.style.margin = "0 4px";
         li.style.width = "8px";
@@ -55,12 +53,11 @@
         li.style.backgroundColor = "black";
         li.style.opacity = "0.5";
         this.items.push(li);
-        this.dom.appendChild(li);
+        dom.appendChild(li);
       }
-
-      this.dom.style.left = Math.floor((ret.container.offsetWidth - this.dom.offsetWidth) / 2) + "px";
+      dom.style.left = Math.floor((meta.container.offsetWidth - dom.offsetWidth) / 2) + "px";
     }
-    ret.indicator.set = function (i) {
+    meta.indicator.set = function (i) {
       var item = this.items[i];
       if (this.current) {
         this.current.style.opacity = "0.5";
@@ -73,61 +70,62 @@
       }
     }
 
-    ret.init = function (screen) {
-      var container = this.container;
+    meta.init = function (screen) {
       screen.style.position = "absolute";
       screen.style.left = "0";
       screen.style.top = "0";
       screen.style.width = "100%";
-      screen.style.height = this.container.offsetHeight + "px";
+      screen.style.height = meta.container.offsetHeight + "px";
     }
 
-    ret.touch = {
+    meta.touch = {
       enabled: false,
       start: { x: 0, y: 0 }
     }
 
-    ret.event = {
+    meta.events = {
       "touchstart": function (evt) {
         var e = evt.touches ? evt.touches[0] : evt;
-        ret.touch.enabled = true;
-        ret.touch.start.x = e.clientX;
-        ret.touch.start.y = e.clientY;
+        meta.touch.enabled = true;
+        meta.touch.start.x = e.clientX;
+        meta.touch.start.y = e.clientY;
       },
       "touchmove": function (evt) {
         var e = evt.touches ? evt.touches[0] : evt;
-        if (ret.touch.enabled) {
+        if (meta.touch.enabled) {
           var x = e.clientX;
-          var dis = (x - ret.touch.start.x);
+          var dis = (x - meta.touch.start.x);
           if (dis < -40) {
-            ret.next();
-            ret.touch.enabled = false;
+            meta.next();
+            meta.touch.enabled = false;
           }
           else if (dis > 40) {
-            ret.prev();
-            ret.touch.enabled = false;
+            meta.prev();
+            meta.touch.enabled = false;
           }
         }
       },
       "touchend": function (evt) {
-        ret.touch.enabled = false;
+        meta.touch.enabled = false;
       }
     }
 
 
     ret.add = function (url, href) {
-      var container = this.container;
+      var container = meta.container;
 
       var img = document.createElement("img");
-      img.onclick = function () {
-        window.open(href);
+      if (href) {
+        img.onclick = function () {
+          window.open(href);
+        }
       }
-      img.addEventListener("touchstart", this.event.touchstart, false);
-      img.addEventListener("touchmove", this.event.touchmove, false);
-      img.addEventListener("touchend", this.event.touchend, false);
-      img.addEventListener("mousedown", this.event.touchstart, false);
-      img.addEventListener("mousemove", this.event.touchmove, false);
-      img.addEventListener("mouseup", this.event.touchend, false);
+      img.addEventListener("touchstart", meta.events.touchstart, false);
+      img.addEventListener("touchmove", meta.events.touchmove, false);
+      img.addEventListener("touchend", meta.events.touchend, false);
+      img.addEventListener("mousedown", meta.events.touchstart, false);
+      img.addEventListener("mousemove", meta.events.touchmove, false);
+      img.addEventListener("mouseup", meta.events.touchend, false);
 
 
       img.style.position = "absolute";
@@ -138,18 +136,18 @@
       img.style.display = "none";
       img.src = url;
 
-      this.container.appendChild(img);
-      this.items.push(img);
+      container.appendChild(img);
+      meta.items.push(img);
     }
 
-    ret.interval = 3000;
-    ret.current = 0;
-    ret.busy = false;
-    ret.onitems = {};
+    meta.interval = 3000;
+    meta.current = 0;
+    meta.busy = false;
+    meta.onitems = {};
     ret.on = function (name, evt) {
-      this.onitems[name] = evt;
+      meta.onitems[name] = evt;
     }
-    ret.next = function () {
+    meta.next = function () {
       var me = this;
       if (this.busy) return;
       this.current++;
@@ -161,8 +159,8 @@
       }
       if (this.current < this.items.length) {
         var img = this.items[this.current];
-        var screen = me.screen;
-        me.busy = true;
+        var screen = this.screen;
+        this.busy = true;
         img.style.display = "block";
         this.init(img);
         this.indicator.set(this.current);
@@ -187,7 +185,7 @@
       }
     }
 
-    ret.prev = function () {
+    meta.prev = function () {
       var me = this;
       if (this.busy) return;
       this.current--;
@@ -221,53 +219,52 @@
       }
 
     }
-    ret.ratio = 0.5625;
-    ret.reset = function (p) {
+    var ratio = 0.5625;
+    meta.reset = function (p) {
       var container = this.container;
       if (typeof (p) == "number") {
-        this.ratio = p;
+        ratio = p;
       }
-      this.container.style.height = Math.floor(container.offsetWidth * this.ratio) + "px";
-      this.indicator.reset();
-      if (this.screen) {
-        this.screen.style.width = "100%";
-        this.screen.style.height = this.container.offsetHeight + "px";
+      container.style.height = Math.floor(container.offsetWidth * ratio) + "px";
+      meta.indicator.reset();
+      if (meta.screen) {
+        meta.screen.style.width = "100%";
+        meta.screen.style.height = container.offsetHeight + "px";
       }
     }
 
     ret.clear = function () {
-      window.clearInterval(this.timer);
-      this.items = [];
-      this.indicator.items = [];
-      this.container.innerHTML = "";
-      this.screen = null;
-      this.busy = false;
+      window.clearInterval(meta.timer);
+      meta.items = [];
+      meta.indicator.items = [];
+      meta.container.innerHTML = "";
+      meta.screen = null;
+      meta.busy = false;
     }
 
-    //ret.init();
-    ret.start = function () {
+    ret.start = function (ratio) {
       var me = this;
-      this.current = 0;
-      this.reset();
-      this.indicator.reset();
-      if (this.items.length > 0) {
-        var img = this.items[0];
+      meta.current = 0;
+      meta.reset(ratio || 0.5625);
+      meta.indicator.reset();
+      if (meta.items.length > 0) {
+        var img = meta.items[0];
         img.style.display = "block";
-        this.screen = img;
-        this.init(img);
-        this.indicator.set(0);
+        meta.screen = img;
+        meta.init(img);
+        meta.indicator.set(0);
       }
-      this.timer = window.setInterval(function () {
-        if (me.busy || me.touch.enabled) return;
-        me.next();
-      }, this.interval);
+      meta.timer = window.setInterval(function () {
+        if (meta.busy || meta.touch.enabled) return;
+        meta.next();
+      }, meta.interval);
     }
 
     return ret;
   }
 
-  window.film = function (container) {
-    return film.create(container);
+  window.Film = function (container) {
+    return fn.create(container);
   }
 }();
 

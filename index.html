@@ -37,7 +37,13 @@
           var url = domain + "/about.io";
           ajax.get(url, function (o) {
             if (o.text.indexOf(serverid) > -1) {
-              w.location = domain + w.decodeURIComponent(fn);
+              var web = domain + w.decodeURIComponent(fn)
+              if(typeof(w.location.replace)=="function"){
+                w.location.replace(web);                          
+              }
+              else {
+                w.location.href = web;            
+              }
             }
           });
         };

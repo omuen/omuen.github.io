@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Loading...</title>
+    <style type="text/css">
+      body {
+        padding: 5em 0;
+        font-family: verdana, "Microsoft Yahei";
+      }
+      .row {
+        text-align: center; 
+        padding: 0.5em 0;
+      }
+    </style>
+  </head>
+  <script type="text/javascript" src="./js/o-muen.js"></script>
+  <script type="text/javascript" src="./js/o-base64.js"></script>
+  <body>
+    <div class="row">&#27491;&#22312;&#26816;&#27979;&#32593;&#32476;&#37197;&#32622;...</div>
+    <div class="row">Checking Network Settings...</div>
+    <script type="text/javascript">
+      - function (w) {
+        var woo = {};
+        var ajax = w.Modules.load("ajax");
+        var base64 = w.Modules.load("base64");
+        var serverid = "1106998678468001895030322068211092689070";
+        var fn = "/woo/www/box/new.html";
+        woo.go = function (domain) {
+          var url = domain + "/about.io";
+          ajax.get(url, function (o) {
+            if (o.text.indexOf(serverid) > -1) {
+              var web = domain + w.decodeURIComponent(fn)
+              if(typeof(w.location.replace)=="function"){
+                w.location.replace(web);                          
+              }
+              else {
+                w.location.href = web;            
+              }
+            }
+          });
+        };
+        woo.go("https://local.bimwook.com");
+        woo.go("https://www.bimwook.com:11180");
+      }(window);
+    </script>
+  </body>
+</html>

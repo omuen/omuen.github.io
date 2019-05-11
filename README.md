@@ -1,2 +1,2 @@
 # omuen.github.io
- - [Start](//bimwook.com)
+ - [Start](//me.bimwook.com)

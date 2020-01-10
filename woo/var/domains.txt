@@ -1,4 +1,5 @@
-http://bimwook.com
+http://me.bimwook.com
+https://me.bimwook.com
 https://www.bimwook.com:11180
 https://omuen.com:11180
 

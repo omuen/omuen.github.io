@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>Memoent</title>
+    <style type="text/css">
+      html{
+        margin:0;
+        padding:0;
+        font-size: 16px;
+      }
+      body{
+        margin:0;
+        padding:0;
+        height: 100%;
+        font-family: verdana, "Microsoft Yahei";
+      }
+      textarea {
+        resize: none;
+        outline: none;
+        border: none;
+        padding: 0.5em;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-appearance: none;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="text"></textarea>
+    <script type="text/javascript">
+      -function(w,d){
+        var text = d.querySelector("#text");
+        text.value = localStorage.getItem("me.cache");
+        text.onchange = function(){
+          localStorage.setItem("me.cache", this.value);
+        }
+      }(window, document);
+    </script>
+  </body>
+</html>
+  

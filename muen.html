@@ -59,6 +59,11 @@
             .mittono:active{
                 color:#1100ff;
             }
+            #abc{
+                color: rgb(150,150,60)
+            }
+
+
         </style>
     </head>
     <body class="pod">
@@ -67,9 +72,37 @@
         </p>
         <a class="mitton" href="island/index.html" target="_blank">首页</a><br />
         <a class="mittono" href="https://www.bimwook.com" target="_blank">Bimwook</a><br/>
-        <p>Happy New Year!!!</p>
-        <button type="button">Click Me!</button>
+        <p id="abc">Happy New Year!!!</p>
+        <button type="button" onclick="showme()">Click Me!</button>
         <script type="text/javascript">
+           var busy=false;
+           function showme(){
+               if(busy){
+                   return;
+               }
+               busy=true;
+               var abc = document.querySelector("#abc");
+               var oldtext = abc.innerText;
+               abc.innerText = "Hello, I am Muen.";
+               setTimeout(function(){
+                   abc.innerText = oldtext;
+                   busy=false;
+               },3000);
+           }
+           
+           let o = [999, 897, 789, 666, 609, 544, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+            for (let m = 0; m < o.length; m++) {
+                let i = 0;
+                while (i < o.length - m) {
+                    if (o[i] > o[i + 1]) {
+                        let p = o[i];
+                        o[i] = o[i + 1];
+                        o[i + 1] = p;
+                    }
+                    i++;
+                }
+                console.log(o);
+            }
           //window.location.href="./island/index.html";
         </script>
     </body>

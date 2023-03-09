@@ -30,18 +30,18 @@
         var base64 = w.Modules.load("base64");
         var serverid = "1106998678468001895030322068211092689070";
         var x = (w.location.search.match(/\?x=([^&]*)/) || ["", ""])[1];
-        var fn = (document.body.clientWidth||window.screen.width) > 1024 ? "/home.html" : "/start.html";
+        var xo = (document.body.clientWidth||window.screen.width) > 1024 ? "/home.html" : "/start.html";
         if (x) {
-          fn = base64.decode(x);
+          xo = base64.decode(x);
         }
         else {
-          fn = (w.location.search.match(/\?fn=([^&]*)/) || ["", fn])[1];
+          xo = (w.location.search.match(/\?fn=([^&]*)/) || ["", xo])[1];
         }
         woo.go = function (domain) {
           var url = domain + "/about.io";
           ajax.get(url, function (o) {
             if (o.text.indexOf(serverid) > -1) {
-              var web = domain + w.decodeURIComponent(fn)
+              var web = domain + w.decodeURIComponent(xo)
               if(typeof(w.location.replace)=="function"){
                 w.location.replace(web);                          
               }

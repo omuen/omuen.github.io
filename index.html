@@ -18,42 +18,31 @@
       }
     </style>
   </head>
-  <script type="text/javascript" src="./js/o-muen.js"></script>
-  <script type="text/javascript" src="./js/o-base64.js"></script>
+  <script type="text/javascript" src="./woo/woo.js"></script>
   <body>
     <div class="row">&#27491;&#22312;&#26816;&#27979;&#32593;&#32476;&#37197;&#32622;...</div>
     <div class="row">Network Checking...</div>
     <script type="text/javascript">
-      - function (w) {
-        var woo = {};
-        var ajax = w.Modules.load("ajax");
-        var base64 = w.Modules.load("base64");
-        var serverid = "1106998678468001895030322068211092689070";
-        var x = (w.location.search.match(/\?x=([^&]*)/) || ["", ""])[1];
-        var xo = (document.body.clientWidth||window.screen.width) > 1024 ? "/home.html" : "/start.html";
+      ((w)=>{
+        const web = w.Web;
+        const domain = "https://www.bimwook.com";
+        let x = (w.location.search.match(/\?x=([^&]*)/) || ["", ""])[1];
+        let xo = (document.body.clientWidth||window.screen.width) > 1024 ? "/home.html" : "/start.html";
         if (x) {
           xo = base64.decode(x);
         }
         else {
           xo = (w.location.search.match(/\?fn=([^&]*)/) || ["", xo])[1];
         }
-        woo.go = function (domain) {
-          var url = domain + "/about.io";
-          ajax.get(url, function (o) {
-            if (o.text.indexOf(serverid) > -1) {
-              var web = domain + w.decodeURIComponent(xo)
-              if(typeof(w.location.replace)=="function"){
-                w.location.replace(web);                          
-              }
-              else {
-                w.location.href = web;            
-              }
-            }
-          });
-        };
-        //woo.go("https://local.bimwook.com");
-        woo.go("https://www.bimwook.com");
-      }(window);
+        let url = domain + "/about.io";
+        web.get(url).then(o=>{
+          const serverid = "1106998678468001895030322068211092689070";
+          if (o.text.indexOf(serverid) > -1) {
+            let address = domain + w.decodeURIComponent(xo)
+            w.location.replace(address);                          
+          }          
+        });
+      }}(window);
     </script>
   </body>
 </html>
